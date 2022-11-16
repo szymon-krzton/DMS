@@ -48,19 +48,34 @@ def display(tasks):
     task = []
     begin = []
     end = []
+    colors = ['red, blue, green, yellow, grey']
 
     for i in range(0, len(tasks)):
         task.append(tasks[i].number)
         begin.append(tasks[i].start)
         end.append(tasks[i].end)
 
-    task_arr = np.array(task)
-    begin_arr = np.array(begin)
-    end_arr = np.array(end)
+    # task_arr = np.array(task)
+    # begin_arr = np.array(begin)
+    # end_arr = np.array(end)
 
-    plt.barh(range(len(begin_arr)), end_arr-begin_arr, left=begin_arr)
+    fig, ax = plt.subplots()
 
-    plt.ylabel("Task")
-    plt.yticks(range(len(begin_arr)), task_arr)
-    plt.xlim([0, max(end)+1])
+    for i in range(5):
+        tmp = []
+        for j in task:
+            if(j == i+1):
+                tmp.append((begin[j], end[j]-begin[j]))
+        ax.broken_barh(tmp, (i*10, 9), facecolors=colors[i])
+    
+    ax.set_ylim(5, 35)
+    ax.set_xlim(0, max(end)+1)
+    ax.set_yticks([15, 25])
+    ax.set_yticklabels(list(dict.fromkeys(task)).sort())
+
+    # plt.barh(range(len(begin_arr)), end_arr-begin_arr, left=begin_arr)
+
+    # plt.ylabel("Task")
+    # plt.yticks(range(len(begin_arr)), task_arr)
+    # plt.xlim([0, max(end)+1])
     plt.show()

@@ -5,8 +5,6 @@ class Task():
         self.deadline = deadline
         self.period = period
         self.status = False
-        self.start = 0
-        self.end = 0
 
     def get_number(self):
         return self.number
