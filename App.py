@@ -5,7 +5,8 @@ from tkinter import ttk
 from Scheduling import *
 from Task import *
 
-example = np.array([[1, 2, 3], [3, 3, 4], [2, 4, 5]])
+#example = np.array([[1, 2, 3], [3, 3, 4], [2, 4, 5]])
+
 
 class App(Tk):
     def __init__(self):
@@ -36,19 +37,17 @@ class App(Tk):
         for entry in entries_deadline:
             entry.grid(row=entries_deadline.index(entry)+1, column=3)
 
-        def print_entries(entries):
-            for entry in entries:
-                print(entry.get())
-
         #[Task(i+1, entries_exec[i].get(), entries_deadline[i].get(), entries_period[i].get) for i in range(5)]
 
-        self.button = Button(self, text='Generuj', command=lambda: display(Scheduling([Task(i+1, int(entries_exec[i].get()), int(entries_deadline[i].get()), int(entries_period[i].get())) for i in range(5)]).sort_tasks())).grid(row=5, column=4)
+        self.button = Button(self, text='Generuj', command=lambda: display(Scheduling([Task(i+1, int(entries_exec[i].get()), int(
+            entries_deadline[i].get()), int(entries_period[i].get())) for i in range(5)]).sort_tasks())).grid(row=5, column=4)
+
 
 def display(tasks):
     task = []
     begin = []
     end = []
-    colors = ['red, blue, green, yellow, grey']
+    colors = ['red', 'blue', 'green', 'yellow', 'grey']
 
     for i in range(0, len(tasks)):
         task.append(tasks[i].number)
@@ -67,15 +66,16 @@ def display(tasks):
             if(j == i+1):
                 tmp.append((begin[j], end[j]-begin[j]))
         ax.broken_barh(tmp, (i*10, 9), facecolors=colors[i])
-    
+
     ax.set_ylim(5, 35)
     ax.set_xlim(0, max(end)+1)
-    ax.set_yticks([15, 25])
-    ax.set_yticklabels(list(dict.fromkeys(task)).sort())
+    ax.set_yticks([5, 15, 25, 35, 45])
+    mylist = sorted(list(dict.fromkeys(task)))
+    ax.set_yticklabels(mylist)
 
     # plt.barh(range(len(begin_arr)), end_arr-begin_arr, left=begin_arr)
 
-    # plt.ylabel("Task")
+    plt.ylabel("Task")
     # plt.yticks(range(len(begin_arr)), task_arr)
     # plt.xlim([0, max(end)+1])
     plt.show()
