@@ -1,5 +1,5 @@
 class FinalData():
-    def __init__(self, number, start, end):
+    def __init__(self, number, start, time):
         self.number = number
         self.start = start
-        self.end = end
+        self.time = time

@@ -46,37 +46,36 @@ class App(Tk):
 def display(tasks):
     task = []
     begin = []
-    end = []
+    duration = []
     colors = ['red', 'blue', 'green', 'yellow', 'grey']
 
     for i in range(0, len(tasks)):
         task.append(tasks[i].number)
         begin.append(tasks[i].start)
-        end.append(tasks[i].end)
+        duration.append(tasks[i].time)
 
-    # task_arr = np.array(task)
-    # begin_arr = np.array(begin)
-    # end_arr = np.array(end)
+    task_arr = np.array(task)
+    begin_arr = np.array(begin)
+    duration_arr = np.array(duration)
 
-    print(task)
-    print(begin)
-    print(end)
-    print(len(task))
     fig, ax = plt.subplots()
+
+    task_tuples = list(zip(begin, duration))
 
     for i in range(5):
         tmp = []
-        for j in range(len(task)):
+        x = 0
+        for j in task:
             if(j == i+1):
-                tmp.append((begin[j], end[j]-begin[j]))
+                tmp.append(task_tuples[x])
+                x += 1
             else:
+                x += 1
                 continue
         ax.broken_barh(tmp, (i*10, 9), facecolors=colors[i])
-        print(tmp)
 
-    
     ax.set_ylim(5, 35)
-    ax.set_xlim(0, max(end)+1)
+    ax.set_xlim(0, max(begin_arr+duration_arr)+1)
     ax.set_yticks([5, 15, 25, 35, 45])
     mylist = sorted(list(dict.fromkeys(task)))
     ax.set_yticklabels(mylist)

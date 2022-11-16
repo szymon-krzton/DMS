@@ -24,7 +24,7 @@ class Scheduling():
                     return False
                 
                 if((task.deadline >= (i%task.deadline)) and task.status):
-                    final_data_list.append(FinalData(task.number, i, i+task.computingTime))
+                    final_data_list.append(FinalData(task.number, i, task.computingTime))
                     # task.start = i
                     # task.end = i+task.computingTime
                     task.status = False
