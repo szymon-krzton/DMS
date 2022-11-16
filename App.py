@@ -58,15 +58,23 @@ def display(tasks):
     # begin_arr = np.array(begin)
     # end_arr = np.array(end)
 
+    print(task)
+    print(begin)
+    print(end)
+    print(len(task))
     fig, ax = plt.subplots()
 
     for i in range(5):
         tmp = []
-        for j in task:
+        for j in range(len(task)):
             if(j == i+1):
                 tmp.append((begin[j], end[j]-begin[j]))
+            else:
+                continue
         ax.broken_barh(tmp, (i*10, 9), facecolors=colors[i])
+        print(tmp)
 
+    
     ax.set_ylim(5, 35)
     ax.set_xlim(0, max(end)+1)
     ax.set_yticks([5, 15, 25, 35, 45])
